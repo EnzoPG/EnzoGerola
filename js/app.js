@@ -9,14 +9,48 @@
   let currentLang = localStorage.getItem("eg_lang") || "en";
   if (!["en", "it", "pt"].includes(currentLang)) currentLang = "en";
 
+  let currentTheme = localStorage.getItem("eg_theme") || "dark";
+  if (!["dark", "light"].includes(currentTheme)) currentTheme = "dark";
+
   document.addEventListener("DOMContentLoaded", () => {
+    applyTheme(currentTheme);
     applyLanguage(currentLang);
+    initThemeToggle();
     initLangButtons();
     initMiniTerminal();
     initVideoModal();
     initCommandPalette();
     initCopyButtons();
   });
+
+  // ==========================================================================
+  // 0. THEME SWITCHER (BLACK / WHITE MODE)
+  // ==========================================================================
+  function applyTheme(theme) {
+    currentTheme = theme === "light" ? "light" : "dark";
+    localStorage.setItem("eg_theme", currentTheme);
+    document.documentElement.setAttribute("data-theme", currentTheme);
+
+    const toggleBtn = document.getElementById("theme-toggle");
+    if (toggleBtn) {
+      const nextLabel = currentTheme === "dark" ? "Switch to White Mode" : "Switch to Black Mode";
+      toggleBtn.setAttribute("aria-label", nextLabel);
+      toggleBtn.setAttribute("title", nextLabel);
+    }
+
+    renderCommandItems(document.getElementById("cmd-input")?.value || "");
+  }
+
+  function toggleTheme() {
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  }
+
+  function initThemeToggle() {
+    const toggleBtn = document.getElementById("theme-toggle");
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", toggleTheme);
+    }
+  }
 
   // ==========================================================================
   // 1. TRILINGUAL SWITCHER (EN / IT / PT-BR)
@@ -170,7 +204,7 @@
 
       switch (raw) {
         case "help":
-          out.innerHTML = `Commands: <b>stack</b> · <b>exp</b> · <b>work</b> · <b>cv</b> · <b>email</b> · <b>lang en|it|pt</b> · <b>clear</b>`;
+          out.innerHTML = `Commands: <b>stack</b> · <b>exp</b> · <b>work</b> · <b>theme</b> · <b>cv</b> · <b>email</b> · <b>lang en|it|pt</b> · <b>clear</b>`;
           break;
         case "stack":
           out.innerHTML = `Node.js · TypeScript · Python · PHP/Laravel · AWS · Docker · SQL/NoSQL · Angular/Vue/React`;
@@ -181,6 +215,20 @@
         case "work":
           document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
           out.innerHTML = `Scrolled to Selected Work.`;
+          break;
+        case "theme":
+          toggleTheme();
+          out.innerHTML = `Theme switched to <b>${currentTheme === "light" ? "White" : "Black"}</b> mode.`;
+          break;
+        case "theme light":
+        case "theme white":
+          applyTheme("light");
+          out.innerHTML = `Theme set to <b>White</b> mode.`;
+          break;
+        case "theme dark":
+        case "theme black":
+          applyTheme("dark");
+          out.innerHTML = `Theme set to <b>Black</b> mode.`;
           break;
         case "cv":
           window.open(DATA.profile.cvPath, "_blank");
@@ -201,7 +249,7 @@
           out.innerHTML = "";
           break;
         default:
-          out.innerHTML = `Unknown command. Try: <b>help</b>, <b>stack</b>, <b>exp</b>, <b>cv</b>, <b>email</b>, or <b>clear</b>.`;
+          out.innerHTML = `Unknown command. Try: <b>help</b>, <b>stack</b>, <b>exp</b>, <b>theme</b>, <b>cv</b>, <b>email</b>, or <b>clear</b>.`;
       }
     });
   }
@@ -290,7 +338,13 @@
   let cmdIndex = 0;
 
   function getCommands() {
+    const dict = DATA.i18n[currentLang];
     return [
+      {
+        title: currentTheme === "dark" ? dict.cmd_theme_light : dict.cmd_theme_dark,
+        cat: "Theme",
+        run: () => toggleTheme()
+      },
       { title: "Download Resume / CV (PDF)", cat: "Action", run: () => window.open(DATA.profile.cvPath, "_blank") },
       { title: "Copy Email Address", cat: "Action", run: () => copyEmail() },
       { title: "Language: English", cat: "Language", run: () => applyLanguage("en") },

@@ -26,7 +26,7 @@ window.PORTFOLIO_DATA = {
       btn_cv: "Resume / CV ↗",
       btn_copy: "Copy Email",
 
-      term_placeholder: "Type a command (help, stack, exp, cv, email)...",
+      term_placeholder: "Type a command (help, stack, exp, theme, cv, email)...",
       term_hint: "Interactive prompt — press Enter",
 
       sec_stack: "Core Stack",
@@ -46,7 +46,9 @@ window.PORTFOLIO_DATA = {
       btn_send_email: "Send Email ↗",
 
       toast_copied: "Email copied: enzop.gerola@gmail.com",
-      cmd_placeholder: "Jump to section, switch language, or open demo..."
+      cmd_placeholder: "Jump to section, switch theme/language, or open demo...",
+      cmd_theme_light: "Theme: Switch to White Mode",
+      cmd_theme_dark: "Theme: Switch to Black Mode"
     },
 
     it: {
@@ -62,7 +64,7 @@ window.PORTFOLIO_DATA = {
       btn_cv: "Scarica CV ↗",
       btn_copy: "Copia Email",
 
-      term_placeholder: "Digita un comando (help, stack, exp, cv, email)...",
+      term_placeholder: "Digita un comando (help, stack, exp, theme, cv, email)...",
       term_hint: "Terminale rapido — premi Invio",
 
       sec_stack: "Stack Tecnologico",
@@ -82,7 +84,9 @@ window.PORTFOLIO_DATA = {
       btn_send_email: "Invia Email ↗",
 
       toast_copied: "Email copiata: enzop.gerola@gmail.com",
-      cmd_placeholder: "Cerca sezioni, cambia lingua o apri un video..."
+      cmd_placeholder: "Cerca sezioni, cambia tema/lingua o apri un video...",
+      cmd_theme_light: "Tema: Passa a White Mode",
+      cmd_theme_dark: "Tema: Passa a Black Mode"
     },
 
     pt: {
@@ -98,7 +102,7 @@ window.PORTFOLIO_DATA = {
       btn_cv: "Baixar CV ↗",
       btn_copy: "Copiar Email",
 
-      term_placeholder: "Digite um comando (help, stack, exp, cv, email)...",
+      term_placeholder: "Digite um comando (help, stack, exp, theme, cv, email)...",
       term_hint: "Terminal rápido — pressione Enter",
 
       sec_stack: "Stack Principal",
@@ -118,7 +122,9 @@ window.PORTFOLIO_DATA = {
       btn_send_email: "Enviar Email ↗",
 
       toast_copied: "Email copiado: enzop.gerola@gmail.com",
-      cmd_placeholder: "Navegue pelas seções, mude o idioma ou abra uma demo..."
+      cmd_placeholder: "Navegue pelas seções, mude o tema/idioma ou abra uma demo...",
+      cmd_theme_light: "Tema: Mudar para White Mode",
+      cmd_theme_dark: "Tema: Mudar para Black Mode"
     }
   },
 
