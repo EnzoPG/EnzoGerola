@@ -3,11 +3,17 @@
    Inspired by Linear, Vercel & Read.cv — High Signal, Zero Noise
    ========================================================================== */
 
-:root {
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #09090b;
   --bg-subtle: #111115;
   --bg-hover: #17171d;
   --bg-glass: rgba(9, 9, 11, 0.78);
+  --pill-bg: rgba(255, 255, 255, 0.04);
+  --hero-glow: rgba(255, 255, 255, 0.055);
+  --modal-backdrop: rgba(0, 0, 0, 0.78);
+  --shadow-elevated: 0 24px 48px rgba(0, 0, 0, 0.6);
 
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
@@ -27,6 +33,28 @@
   --radius-lg: 16px;
 }
 
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #ffffff;
+  --bg-subtle: #f4f4f5;
+  --bg-hover: #e4e4e7;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+  --pill-bg: #ffffff;
+  --hero-glow: rgba(9, 9, 11, 0.04);
+  --modal-backdrop: rgba(9, 9, 11, 0.45);
+  --shadow-elevated: 0 24px 48px rgba(9, 9, 11, 0.12);
+
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+
+  --border: rgba(9, 9, 11, 0.09);
+  --border-hover: rgba(9, 9, 11, 0.22);
+
+  --accent: #059669;
+  --highlight: #18181b;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -42,6 +70,7 @@ html {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {
@@ -53,11 +82,12 @@ body {
   background-color: var(--bg);
   background-image: radial-gradient(
     ellipse 80% 50% at 50% -20%,
-    rgba(255, 255, 255, 0.055),
+    var(--hero-glow),
     transparent
   );
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color 0.2s ease;
 }
 
 /* ==========================================================================
@@ -174,6 +204,43 @@ body {
 .cmd-pill:hover {
   border-color: var(--border-hover);
   color: var(--text-primary);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.theme-toggle svg {
+  width: 14px;
+  height: 14px;
+}
+
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .icon-moon {
+  display: block;
 }
 
 /* ==========================================================================
@@ -384,7 +451,7 @@ body {
 .stack-pill {
   font-size: 0.8rem;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--pill-bg);
   border: 1px solid var(--border);
   padding: 4px 10px;
   border-radius: 6px;
@@ -536,7 +603,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--pill-bg);
   border: 1px solid var(--border);
   padding: 2px 8px;
   border-radius: 999px;
@@ -629,7 +696,7 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.78);
+  background: var(--modal-backdrop);
   backdrop-filter: blur(8px);
   z-index: 500;
   display: none;
@@ -649,7 +716,7 @@ body {
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-elevated);
 }
 
 .modal-header {
@@ -724,7 +791,7 @@ body {
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-elevated);
 }
 
 .cmd-input-wrap {
